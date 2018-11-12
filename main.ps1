@@ -1,4 +1,4 @@
-$NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.com/naitmare01/" -Icon github),(New-UDLink -Text "Startsida" -Url "/hem" -Icon home))
+$NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.com/naitmare01/race-calendar" -Icon github),(New-UDLink -Text "Startsida" -Url "/hem" -Icon home))
 $footer = New-UDFooter -Links (New-UDLink -Text "swecyclingonline.se" -Url "http://swecyclingonline.se" -Icon bicycle)
 
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
