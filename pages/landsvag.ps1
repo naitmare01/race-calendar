@@ -1,3 +1,4 @@
+Import-Module (Join-Path $PSScriptRoot "..\functions\Get-RaceFromApi.psm1")
 $lvgResult = Get-RaceFromApi -Gren "landsväg"
 
 New-UDPage -Name "Landsväg" -Icon bicycle -Content{

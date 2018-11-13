@@ -1,3 +1,4 @@
+Import-Module (Join-Path $PSScriptRoot "..\functions\Get-RaceFromApi.psm1")
 $AntalRace = Get-TotalRacesFromApi
 
 New-UDPage -Name "Hem" -Icon home -Content{

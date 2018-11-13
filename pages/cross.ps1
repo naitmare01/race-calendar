@@ -1,3 +1,4 @@
+Import-Module (Join-Path $PSScriptRoot "..\functions\Get-RaceFromApi.psm1")
 $cxResult = Get-RaceFromApi -Gren "cykelcross"
 
 New-UDPage -Name "Cykelcross" -Icon bicycle -Content{

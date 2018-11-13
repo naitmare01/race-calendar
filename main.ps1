@@ -17,11 +17,10 @@ $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
 $mtb = . (Join-Path $PSScriptRoot "pages\mtb.ps1")
 $cross = . (Join-Path $PSScriptRoot "pages\cross.ps1")
 $hem = . (Join-Path $PSScriptRoot "pages\hem.ps1")
-Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
 
 Get-UDDashboard | Stop-UDDashboard
  
-Start-UDDashboard -Content { 
+Start-UDDashboard -Content{ 
     New-UDDashboard -NavbarLinks $NavBarLinks -Title "Svenska cykelförbundets tävlingar" -NavBarColor '#FF1c1c1c' -NavBarFontColor "#FF55b3ff" -BackgroundColor $Colors.BackgroundColor -FontColor $Colors.FontColor -Pages @(
         $hem,    
         $landsvag,
