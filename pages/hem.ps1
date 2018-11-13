@@ -1,4 +1,3 @@
-Import-Module (Join-Path $PSScriptRoot "..\functions\Get-RaceFromApi.psm1")
 $AntalRace = Get-TotalRacesFromApi
 
 New-UDPage -Name "Hem" -Icon home -Content{
@@ -9,27 +8,27 @@ New-UDPage -Name "Hem" -Icon home -Content{
     }#End new-udrow
     New-UDRow{
         New-UDLayout -Columns 3 -Content{
-            New-UDCard -BackgroundColor '#383838' -Links (New-UDLink -Text "Landsvägs-tävlingar" -Url /landsväg -Icon bicycle) -Content{
-                New-UDParagraph -Text "Klicka här för att se alla aktuella Landsvägs-tävlingar." -Color "#FFFFFF"
+            New-UDCard -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Landsvägs-tävlingar" -Url /landsväg -Icon bicycle) -Content{
+                New-UDParagraph -Text "Klicka här för att se alla aktuella Landsvägs-tävlingar." -Color $Colors.FontColor
                 }#end content
-            New-UDCard -BackgroundColor '#383838' -Links (New-UDLink -Text "Mountainbike-tävlingar" -Url /mountainbike -Icon bicycle) -Content{
-                New-UDParagraph -Text "Klicka här för att se alla aktuella Mountainbike-tävlingar." -Color "#FFFFFF"
+            New-UDCard -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Mountainbike-tävlingar" -Url /mountainbike -Icon bicycle) -Content{
+                New-UDParagraph -Text "Klicka här för att se alla aktuella Mountainbike-tävlingar." -Color $Colors.FontColor
                 }#end content
-            New-UDCard -BackgroundColor '#383838' -Links (New-UDLink -Text "Cross-tävlingar" -Url /cross -Icon bicycle) -Content{
-                New-UDParagraph -Text "Klicka här för att se alla aktuella Cross-tävlingar." -Color "#FFFFFF"
+            New-UDCard -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Cross-tävlingar" -Url /cykelcross -Icon bicycle) -Content{
+                New-UDParagraph -Text "Klicka här för att se alla aktuella Cross-tävlingar." -Color $Colors.FontColor
                 }#end content
             }#End new-udlayout     
         }#End new-udrow
     New-UDRow{
         New-UDLayout -Columns 3 -Content{
-            New-UDChart -Title "Antal tävlingar per gren" -Type Bar -Endpoint {
+            New-UDChart -Title "Antal tävlingar per gren" -Type Bar -BackgroundColor $Colors.BackgroundColor2 -FontColor $Colors.FontColor -Endpoint {
                 $AntalRace | ForEach-Object{
                     [PSCustomObject]@{ 
                         Gren = $_.Gren
                         Antal = $_.Antal.Count
                     }#End custom object
-                }#End foreach-object | Out-UDChartData -LabelProperty "Gren" -DataProperty "Antal" -DatasetLabel "Tävlingar per gren" -BackgroundColor "#FF0000" -BorderColor "#6F0000" -HoverBackgroundColor "#CC0786" -HoverBorderColor "#900786"
-            }#End new-udchart -BackgroundColor "#252525" -FontColor "#FFFFFF"
+                } | Out-UDChartData -LabelProperty "Gren" -DataProperty "Antal" -DatasetLabel "Tävlingar per gren" -BackgroundColor $Colors.BackgroundColor3 -BorderColor $Colors.UDChartBorderColor -HoverBackgroundColor $Colors.UDChartHoverBackgroundColor -HoverBorderColor $Colors.UDChartHoverBorderColor #End foreach-object
+            }#End new-udchart
         }#End new-udlayout
     }#End new-udrow
 }#End new-udpage
