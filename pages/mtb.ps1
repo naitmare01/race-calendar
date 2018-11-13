@@ -1,4 +1,3 @@
-Import-Module (Join-Path $PSScriptRoot "..\functions\Get-RaceFromApi.psm1")
 $mtbResult = Get-RaceFromApi -Gren "mountainbike"
 
 New-UDPage -Name "Mountainbike" -Icon bicycle -Content{
