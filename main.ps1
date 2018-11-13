@@ -13,7 +13,7 @@ $Global:Colors = @{
 $NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.com/naitmare01/race-calendar" -Icon github),(New-UDLink -Text "Startsida" -Url "/hem" -Icon home))
 $footer = New-UDFooter -Links (New-UDLink -Text "swecyclingonline.se" -Url "http://swecyclingonline.se" -Icon bicycle)
 
-$Session:APIModule = Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
+$Cache:APIModule = Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
 $mtb = . (Join-Path $PSScriptRoot "pages\mtb.ps1")
 $cross = . (Join-Path $PSScriptRoot "pages\cross.ps1")
