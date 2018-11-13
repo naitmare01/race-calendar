@@ -14,8 +14,8 @@ function Get-RaceFromApi{
         $Body = @{
             SportId = 'sport/3'
             EvenemangId = ''
-            StartTid =  ((Get-Date).AddDays(-7))
-            SlutTid = ((Get-Date).AddYears(1))
+            StartTid = ((Get-Date).AddDays(-7).ToString('yyyy-MM-dd'))
+            SlutTid = ((Get-Date).AddYears(1).ToString('yyyy-MM-dd'))
             Namn = ''
             Tags = ''
             Nivåer = $Gren
