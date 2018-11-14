@@ -1,8 +1,0 @@
-plugins:
-  - jekyll-redirect-from
-
-theme: jekyll-theme-cayman
-
-permalink: /race-calendar
-redirect_to:
-  - https://github.com
