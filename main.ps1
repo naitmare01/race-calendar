@@ -14,6 +14,7 @@ $NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.
 $footer = New-UDFooter -Links (New-UDLink -Text " swecyclingonline.se " -Url "http://swecyclingonline.se" -Icon bicycle)
 
 $Cache:APIModule = Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
+$Cache:DatagridValues = "Namn", "Plats", "Arrangör", "Typ", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL", "Kategori"
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
 $mtb = . (Join-Path $PSScriptRoot "pages\mtb.ps1")
 $cross = . (Join-Path $PSScriptRoot "pages\cross.ps1")
@@ -30,7 +31,3 @@ Start-UDDashboard -Content{
         $cross
     ) -Footer $Footer
 } -Port 10001 -Wait
-
-
-#Att göra, ta fram plats och arrangerande klubb!
-#Tex: $moreinfo = Invoke-RestMethod -uri "http://swecyclingonline.se/api/v1/tavling/16551" -Method get

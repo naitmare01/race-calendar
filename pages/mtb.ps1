@@ -19,7 +19,7 @@ New-UDPage -Name "Mountainbike" -Icon bicycle -Content{
                 }#End content
             }#End foreach
         }#End new-udlayout
-        New-UDGrid -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id mtb -Title "Cykel tävlingar landväg"  -Headers @("Namn", "Typ", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL", "Kategori") -Properties @("Namn", "Typ", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL", "Kategori") -Endpoint {
+        New-UDGrid -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id mtb -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
             $mtbResult | Out-UDGridData
         }#End New-udgrid
     }#End new-udrow

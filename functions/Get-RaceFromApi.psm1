@@ -36,7 +36,10 @@ function Get-RaceFromApi{
             $starttid = $r.StartTid
             $today = Get-Date
             $urlToRace = $BaseUrl + $r.documentId
-    
+            $eventNumber = ($r.documentId).Split('/')[-1]
+
+            $MoreEventInfo = Invoke-RestMethod -uri "http://swecyclingonline.se/api/v1/tavling/$eventNumber" -Method Get
+
             if($sistaAnmalan -notlike ""){
                 $sistaAnmalan = $sistaAnmalan.ToString("yyyy-MM-dd")
                 $DagarTillSistaAnmalning = (New-TimeSpan -Start $today -End $sistaAnmalan).Days
@@ -46,9 +49,14 @@ function Get-RaceFromApi{
                 $starttid = $starttid.ToString("yyyy-MM-dd")
                 $dagartillstart = (New-TimeSpan -Start $today -End $starttid).Days
             }#End if
-    
+            
+            #Att göra, ta fram plats och arrangerande klubb!
+            #Tex: $moreinfo = Invoke-RestMethod -uri "http://swecyclingonline.se/api/v1/tavling/16551" -Method get
+            
             $customObject = New-Object System.Object
             $customObject | Add-Member -Type NoteProperty -Name Namn -Value $r.namn
+            $customObject | Add-Member -Type NoteProperty -Name Plats -Value $MoreEventInfo.Plats
+            $customObject | Add-Member -Type NoteProperty -Name Arrangör -Value $MoreEventInfo.arrangörInfos.arrangörNamn
             $customObject | Add-Member -Type NoteProperty -Name Typ -Value $r.Typ
             $customObject | Add-Member -Type NoteProperty -Name StartTid -Value $starttid
             $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value $sistaAnmalan
