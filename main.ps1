@@ -11,7 +11,7 @@ $Global:Colors = @{
 }
 
 $NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.com/naitmare01/race-calendar" -Icon github),(New-UDLink -Text "Startsida" -Url "/hem" -Icon home))
-$footer = New-UDFooter -Links (New-UDLink -Text "swecyclingonline.se" -Url "http://swecyclingonline.se" -Icon bicycle)
+$footer = New-UDFooter -Links (New-UDLink -Text " swecyclingonline.se " -Url "http://swecyclingonline.se" -Icon bicycle)
 
 $Cache:APIModule = Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
@@ -29,4 +29,8 @@ Start-UDDashboard -Content{
         $mtb,
         $cross
     ) -Footer $Footer
-} -Port 10001
+} -Port 10001 -Wait
+
+
+#Att göra, ta fram plats och arrangerande klubb!
+#Tex: $moreinfo = Invoke-RestMethod -uri "http://swecyclingonline.se/api/v1/tavling/16551" -Method get
