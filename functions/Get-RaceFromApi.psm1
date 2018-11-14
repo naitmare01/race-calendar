@@ -38,7 +38,8 @@ function Get-RaceFromApi{
             $urlToRace = $BaseUrl + $r.documentId
             $eventNumber = ($r.documentId).Split('/')[-1]
 
-            $MoreEventInfo = Invoke-RestMethod -uri "http://swecyclingonline.se/api/v1/tavling/$eventNumber" -Method Get
+            $MoreEventInfoURL = "http://swecyclingonline.se/api/v1/" + $r.documentId
+            $MoreEventInfo = Invoke-RestMethod -uri $MoreEventInfoURL -Method Get
 
             if($sistaAnmalan -notlike ""){
                 $sistaAnmalan = $sistaAnmalan.ToString("yyyy-MM-dd")

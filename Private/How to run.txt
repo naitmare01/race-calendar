@@ -1,2 +1,2 @@
 docker run -d -p 10001:10001 --name ud racecalendar
-docker run -d -p 10001:10001 --name ud davidberndtsson/racecalendar --restart always
+docker run -d -p 8080:8080 --restart always --name ud davidberndtsson/racecalendar

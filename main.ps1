@@ -30,4 +30,4 @@ Start-UDDashboard -Content{
         $mtb,
         $cross
     ) -Footer $Footer
-} -Port 10001 -Wait
+} -Port 8080 -Wait
