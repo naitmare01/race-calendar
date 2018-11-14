@@ -1,5 +1,3 @@
-redirect_to:
-  - http://www.github.com
 # Race-Calendar
 
 One Paragraph of project description goes here
