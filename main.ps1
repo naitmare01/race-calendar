@@ -44,5 +44,5 @@ Start-UDDashboard -Content{
         $landsvag,
         $mtb,
         $cross
-    ) -Footer $Footer -EndpointInitialization $ne 
+    ) -Footer $Footer -EndpointInitialization $ne
 } -Port 8080 -Endpoint @($Everyminute)

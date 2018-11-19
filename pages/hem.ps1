@@ -19,7 +19,7 @@ New-UDPage -Name "Hem" -Icon home -Content{
         }#End new-udrow
     New-UDRow{
         New-UDLayout -Columns 3 -Content{
-            New-UDChart -Title "Antal tävlingar per gren" -Type Bar -BackgroundColor $Colors.BackgroundColor2 -FontColor $Colors.FontColor -Endpoint {
+            New-UDChart -AutoRefresh -RefreshInterval 60 -Title "Antal tävlingar per gren" -Type Bar -BackgroundColor $Colors.BackgroundColor2 -FontColor $Colors.FontColor -Endpoint {
                 $Cache:AntalRace | ForEach-Object{
                     [PSCustomObject]@{ 
                         Gren = $_.Gren

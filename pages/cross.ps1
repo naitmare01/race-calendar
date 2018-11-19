@@ -17,7 +17,7 @@ New-UDPage -Name "Cykelcross" -Icon bicycle -Content{
                 }#End content
             }#End foreach
         }#End new-udlayout
-        New-UDGrid -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id cx -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
+        New-UDGrid -AutoRefresh -RefreshInterval 60 -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id cx -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
             $cxResult | Out-UDGridData
         }#End New-udgrid
     }#End new-udrow
