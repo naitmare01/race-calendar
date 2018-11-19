@@ -45,4 +45,4 @@ Start-UDDashboard -Content{
         $mtb,
         $cross
     ) -Footer $Footer -EndpointInitialization $ne
-} -Port 8080 -Endpoint @($Everyminute)
+} -Port 8080 -Endpoint @($Everyminute) -Wait
