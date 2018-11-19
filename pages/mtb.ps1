@@ -1,5 +1,3 @@
-$mtbResult = Get-RaceFromApi -Gren "mountainbike"
-
 New-UDPage -Name "Mountainbike" -Icon bicycle -Content{
     New-UDRow{
         New-UDColumn -Size 12 {
@@ -8,7 +6,7 @@ New-UDPage -Name "Mountainbike" -Icon bicycle -Content{
     }#End new-udrow
     New-UDRow {
         New-UDLayout -Columns 3 -Content{
-            foreach($r in $mtbResult[0..2]){
+            foreach($r in $Cache:mtbResult[0..2]){
                 New-UDCard -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $r.url.url -OpenInNewWindow -Icon bicycle) -Content{
                     New-UDParagraph -Text $r.Namn -Color $Colors.FontColor
                     New-UDParagraph -Text ("Typ av lopp: " + $r.Typ) -Color $Colors.FontColor

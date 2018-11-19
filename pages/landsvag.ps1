@@ -1,5 +1,3 @@
-$lvgResult = Get-RaceFromApi -Gren "landsväg"
-
 New-UDPage -Name "Landsväg" -Icon bicycle -Content{
     New-UDRow{
         New-UDColumn -Size 12 {
@@ -8,7 +6,7 @@ New-UDPage -Name "Landsväg" -Icon bicycle -Content{
     }#End new-udrow
     New-UDRow {
         New-UDLayout -Columns 3 -Content{
-            foreach($r in $lvgResult[0..2]){
+            foreach($r in $Cache:lvgResult[0..2]){
                 New-UDCard -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $r.url.url -OpenInNewWindow -Icon bicycle) -Content{
                     New-UDParagraph -Text $r.Namn -Color $Colors.FontColor
                     New-UDParagraph -Text ("Typ av lopp: " + $r.Typ) -Color $Colors.FontColor
@@ -20,7 +18,7 @@ New-UDPage -Name "Landsväg" -Icon bicycle -Content{
             }#End foreach
         }#End new-udlayout
         New-UDGrid -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id lvg -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
-            $lvgResult | Out-UDGridData
+            $Cache:lvgResult | Out-UDGridData
         }#End New-udgrid
     }#End new-udrow
 }#End new-udpage

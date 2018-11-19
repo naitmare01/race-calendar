@@ -1,9 +1,7 @@
-$AntalRace = Get-TotalRacesFromApi
-
 New-UDPage -Name "Hem" -Icon home -Content{
     New-UDRow{
         New-UDColumn -Size 12 {
-            New-UDHtml -Markup "<div class='center-align white-text'><h3>Race-Calendar</h3></h3><h5>Denna sida listar alla tävlningar på swecyclingonline.se på ett lättöverskådligt och enkelt sätt.</h5></div>"
+            New-UDHtml -Markup "<div class='center-align white-text'><h3>Race-Calendar</h3></h3><h5>Denna sida listar alla tävlingar på swecyclingonline.se på ett lättöverskådligt och enkelt sätt.</h5></div>"
         }#End new-udcolumn
     }#End new-udrow
     New-UDRow{
@@ -22,7 +20,7 @@ New-UDPage -Name "Hem" -Icon home -Content{
     New-UDRow{
         New-UDLayout -Columns 3 -Content{
             New-UDChart -Title "Antal tävlingar per gren" -Type Bar -BackgroundColor $Colors.BackgroundColor2 -FontColor $Colors.FontColor -Endpoint {
-                $AntalRace | ForEach-Object{
+                $Cache:AntalRace | ForEach-Object{
                     [PSCustomObject]@{ 
                         Gren = $_.Gren
                         Antal = $_.Antal.Count

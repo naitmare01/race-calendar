@@ -13,13 +13,28 @@ $Global:Colors = @{
 $NavBarLinks = @((New-UDLink -Text "Github till projektet" -Url "https://github.com/naitmare01/race-calendar" -Icon github),(New-UDLink -Text "Startsida" -Url "/hem" -Icon home))
 $footer = New-UDFooter -Links (New-UDLink -Text " swecyclingonline.se " -Url "http://swecyclingonline.se" -Icon bicycle)
 
-$Cache:APIModule = Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
+#Import-Module and fetch the data for the first time only.
+Import-Module (Join-Path $PSScriptRoot "functions\Get-RaceFromApi.psm1")
+$Cache:lvgResult = Get-RaceFromApi -Gren "landsväg"
+$Cache:cxResult = Get-RaceFromApi -Gren "cykelcross"
+$Cache:mtbResult = Get-RaceFromApi -Gren "mountainbike"
+$Cache:AntalRace = Get-TotalRacesFromApi
+
+$ne = New-UDEndpointInitialization -Module ".\$PSScriptRoot\functions\Get-RaceFromApi.psm1" -Variable @("$Cache:lvgResult", "$Cache:cxResult", "$Cache:AntalRace", "$Cache:mtbResult")
+
 $Cache:DatagridValues = "Namn", "Plats", "Arrangör", "Typ", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL", "Kategori"
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
 $mtb = . (Join-Path $PSScriptRoot "pages\mtb.ps1")
 $cross = . (Join-Path $PSScriptRoot "pages\cross.ps1")
 $hem = . (Join-Path $PSScriptRoot "pages\hem.ps1")
 
+$Schedule = New-UDEndpointSchedule -Every 1 -Minute
+$Everyminute = New-UDEndpoint -Schedule $Schedule -Endpoint{
+    $Cache:lvgResult = Get-RaceFromApi -Gren "landsväg"
+    $Cache:cxResult = Get-RaceFromApi -Gren "cykelcross"
+    $Cache:mtbResult = Get-RaceFromApi -Gren "mountainbike"
+    $Cache:AntalRace = Get-TotalRacesFromApi
+}
 
 Get-UDDashboard | Stop-UDDashboard
  
@@ -29,5 +44,5 @@ Start-UDDashboard -Content{
         $landsvag,
         $mtb,
         $cross
-    ) -Footer $Footer
-} -Port 8080 -Wait
+    ) -Footer $Footer -EndpointInitialization $ne 
+} -Port 8080 -Endpoint @($Everyminute)
