@@ -17,7 +17,7 @@ New-UDPage -Name "Landsväg" -Icon bicycle -Content{
                 }#End content
             }#End foreach
         }#End new-udlayout
-        New-UDGrid -AutoRefresh -RefreshInterval 60 -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id lvg -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
+        New-UDGrid -AutoRefresh -RefreshInterval 60 -DefaultSortColumn 2 -PageSize 20 -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -Id lvg -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
             $Cache:lvgResult | Out-UDGridData
         }#End New-udgrid
     }#End new-udrow

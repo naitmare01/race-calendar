@@ -37,12 +37,12 @@ $Everyminute = New-UDEndpoint -Schedule $Schedule -Endpoint{
 }
 
 Get-UDDashboard | Stop-UDDashboard
- 
+
 Start-UDDashboard -Content{ 
-    New-UDDashboard -NavbarLinks $NavBarLinks -Title "Svenska cykelförbundets tävlingar" -NavBarColor '#FF1c1c1c' -NavBarFontColor "#FF55b3ff" -BackgroundColor $Colors.BackgroundColor -FontColor $Colors.FontColor -Pages @(
+    New-UDDashboard -NavBarColor '#FF1c1c1c' -NavBarFontColor "#FF55b3ff" -BackgroundColor $Colors.BackgroundColor -FontColor $Colors.FontColor -NavbarLinks $NavBarLinks -Title "Svenska cykelförbundets tävlingar" -Pages @(
         $hem,    
         $landsvag,
         $mtb,
         $cross
-    ) -Footer $Footer -EndpointInitialization $ne
+        ) -Footer $Footer -EndpointInitialization $ne
 } -Port 8080 -Endpoint @($Everyminute) -Wait

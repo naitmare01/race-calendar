@@ -18,7 +18,7 @@ New-UDPage -Name "Mountainbike" -Icon bicycle -Content{
             }#End foreach
         }#End new-udlayout
         New-UDGrid -AutoRefresh -RefreshInterval 60 -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -DefaultSortColumn 2 -PageSize 20 -Id mtb -Title "Cykel tävlingar landväg"  -Headers @($Cache:DatagridValues) -Properties @($Cache:DatagridValues) -Endpoint {
-            $mtbResult | Out-UDGridData
+            $Cache:mtbResult | Out-UDGridData
         }#End New-udgrid
     }#End new-udrow
 }#End new-udpage
