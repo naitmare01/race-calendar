@@ -3,13 +3,12 @@ function Get-RaceFromApi{
     param(
         $Gren,
         $BaseUrl = "http://swecyclingonline.se/",
-        $Url = "/api/v1/tavling/sok2"
+        $Url = "api/v1/tavling/sok2"
     )#End param
     
     begin{
         $returnArray = [System.Collections.ArrayList]@()
         $apiUrl = "$BaseUrl$Url"
-
 
         $Body = @{
             SportId = 'sport/3'
@@ -26,7 +25,6 @@ function Get-RaceFromApi{
             Take = '100'
             IsCal = ''
         }#End body
-
         $Result = Invoke-RestMethod -Method 'Post' -Uri $apiUrl -Body $Body
     }#End begin
 
@@ -50,6 +48,8 @@ function Get-RaceFromApi{
                 if($r.StartTid -notlike ""){
                     $starttid = Get-StartTid -StartTid $r.StartTid
                 }#End if
+
+                $UrlForObject = (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
                 
                 $customObject = New-Object System.Object
                 $customObject | Add-Member -Type NoteProperty -Name Namn -Value $r.namn
@@ -60,7 +60,7 @@ function Get-RaceFromApi{
                 $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value $sistaAnmalan.SistaAnmalningsDag
                 $customObject | Add-Member -Type NoteProperty -Name DagarTillStart -Value $StartTid.DagarTillStart
                 $customObject | Add-Member -Type NoteProperty -Name DagarTillSistaAnmalning -Value $sistaAnmalan.DagarTillSistaAnmalning
-                $customObject | Add-Member -Type NoteProperty -Name URL -Value (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
+                $customObject | Add-Member -Type NoteProperty -Name URL -Value $UrlForObject
                 $returnArray.Add($customObject) | Out-Null
             }#End else
         }#End foreach
@@ -130,6 +130,7 @@ function Get-EvenemangFromApi{
                 $sistaAnmalan = Get-SistaAnmalningsDag -SistaAnmalningsDag $RaceResult.SistaAnmälningsDatum
             }#End if
 
+            $UrlForObject = (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
 
             $customObject = New-Object System.Object
             $customObject | Add-Member -Type NoteProperty -Name Namn -Value $RaceResult.namn
@@ -140,7 +141,7 @@ function Get-EvenemangFromApi{
             $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value $sistaAnmalan.SistaAnmalningsDag
             $customObject | Add-Member -Type NoteProperty -Name DagarTillStart -Value $StartTid.DagarTillStart
             $customObject | Add-Member -Type NoteProperty -Name DagarTillSistaAnmalning -Value $sistaAnmalan.DagarTillSistaAnmalning
-            $customObject | Add-Member -Type NoteProperty -Name URL -Value (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
+            $customObject | Add-Member -Type NoteProperty -Name URL -Value $UrlForObject
             $returnArray.Add($customObject) | Out-Null
         }#End foreach
     }#End process
