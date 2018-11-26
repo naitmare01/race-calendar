@@ -117,7 +117,6 @@ function Get-EvenemangFromApi{
                 $RaceResult = Invoke-RestMethod -Method 'Get' -Uri $newApiUrl -ErrorAction Stop
             }#End try
             catch{
-                Write-Host $_ -ForegroundColor green
                 continue
             }#End catch
             
