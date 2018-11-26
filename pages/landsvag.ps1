@@ -9,7 +9,7 @@ New-UDPage -Name "Landsväg" -Icon bicycle -Content{
             foreach($r in $Cache:lvgResult[0..2]){
                 New-UDCard -FontColor $Colors.FontColor -BackgroundColor $Colors.UDCardBakgroundColor -Links (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $r.url.url -OpenInNewWindow -Icon bicycle) -Content{
                     New-UDParagraph -Text $r.Namn -Color $Colors.FontColor
-                    New-UDParagraph -Text ("Typ av lopp: " + $r.Typ) -Color $Colors.FontColor
+                    New-UDParagraph -Text ("Typ av lopp: " + $r.Kategori) -Color $Colors.FontColor
                     New-UDParagraph -Text ("Loppet går: " + $r.StartTid) -Color $Colors.FontColor
                     New-UDParagraph -Text ("Sista anmälningsdag: " + $r.SistaAnmälningsDatum) -Color $Colors.FontColor
                     New-UDParagraph -Text ("Antal dagar till start: " + $r.DagarTillStart) -Color $Colors.FontColor

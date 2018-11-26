@@ -22,7 +22,7 @@ $Cache:AntalRace = Get-TotalRacesFromApi
 
 $ne = New-UDEndpointInitialization -Module ".\$PSScriptRoot\functions\Get-RaceFromApi.psm1" -Variable @("$Cache:lvgResult", "$Cache:cxResult", "$Cache:AntalRace", "$Cache:mtbResult")
 
-$Cache:DatagridValues = "Namn", "Plats", "Arrangör", "Typ", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL", "Kategori"
+$Cache:DatagridValues = "Namn", "Plats", "Arrangör", "Kategori", "StartTid", "SistaAnmälningsDatum", "DagarTillStart", "DagarTillSistaAnmalning", "URL"
 $landsvag = . (Join-Path $PSScriptRoot "pages\landsvag.ps1")
 $mtb = . (Join-Path $PSScriptRoot "pages\mtb.ps1")
 $cross = . (Join-Path $PSScriptRoot "pages\cross.ps1")
