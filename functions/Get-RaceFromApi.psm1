@@ -70,7 +70,6 @@ function Get-RaceFromApi{
         return $returnArray
     }#End end
 }#End function
-
 function Get-TotalRacesFromApi{
     [CmdletBinding()]
     param()#End param
@@ -93,7 +92,6 @@ function Get-TotalRacesFromApi{
         return $returnArray
     }
 }#End function
-
 function Get-EvenemangFromApi{
     [CmdletBinding()]
     param(
