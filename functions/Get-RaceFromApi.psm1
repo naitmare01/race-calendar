@@ -29,41 +29,46 @@ function Get-RaceFromApi{
     }#End begin
 
     process{
-        foreach($r in $Result){
-            if($r.Typ -like "Evenemang"){
-                $EvenemangResult = Get-EvenemangFromApi -EvenemangID $r.documentId
-                foreach($e in $EvenemangResult){
-                    $returnArray.Add($e) | Out-Null
-                }#End foreach
-            }#End if
-            else{
-                $urlToRace = $BaseUrl + $r.documentId
-                $MoreEventInfoURL = "$BaseUrl/api/v1/" + $r.documentId
-                $MoreEventInfo = Invoke-RestMethod -uri $MoreEventInfoURL -Method Get
-
-                if($r.SistaAnmälningsDatum -notlike ""){
-                    $sistaAnmalan = Get-SistaAnmalningsDag -SistaAnmalningsDag $r.SistaAnmälningsDatum
+        if(($Result | Measure-Object).count -eq 0){
+            $returnArray = Get-NullResult
+        }#End if
+        else{
+            foreach($r in $Result){
+                if($r.Typ -like "Evenemang"){
+                    $EvenemangResult = Get-EvenemangFromApi -EvenemangID $r.documentId
+                    foreach($e in $EvenemangResult){
+                        $returnArray.Add($e) | Out-Null
+                    }#End foreach
                 }#End if
-        
-                if($r.StartTid -notlike ""){
-                    $starttid = Get-StartTid -StartTid $r.StartTid
-                }#End if
+                else{
+                    $urlToRace = $BaseUrl + $r.documentId
+                    $MoreEventInfoURL = "$BaseUrl/api/v1/" + $r.documentId
+                    $MoreEventInfo = Invoke-RestMethod -uri $MoreEventInfoURL -Method Get
 
-                $UrlForObject = (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
-                
-                $customObject = New-Object System.Object
-                $customObject | Add-Member -Type NoteProperty -Name Namn -Value $r.namn
-                $customObject | Add-Member -Type NoteProperty -Name Plats -Value $MoreEventInfo.Plats
-                $customObject | Add-Member -Type NoteProperty -Name Arrangör -Value $MoreEventInfo.arrangörInfos.arrangörNamn
-                $customObject | Add-Member -Type NoteProperty -Name Kategori -Value $r.Kategori
-                $customObject | Add-Member -Type NoteProperty -Name StartTid -Value $StartTid.StartTid
-                $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value $sistaAnmalan.SistaAnmalningsDag
-                $customObject | Add-Member -Type NoteProperty -Name DagarTillStart -Value $StartTid.DagarTillStart
-                $customObject | Add-Member -Type NoteProperty -Name DagarTillSistaAnmalning -Value $sistaAnmalan.DagarTillSistaAnmalning
-                $customObject | Add-Member -Type NoteProperty -Name URL -Value $UrlForObject
-                $returnArray.Add($customObject) | Out-Null
-            }#End else
-        }#End foreach
+                    if($r.SistaAnmälningsDatum -notlike ""){
+                        $sistaAnmalan = Get-SistaAnmalningsDag -SistaAnmalningsDag $r.SistaAnmälningsDatum
+                    }#End if
+            
+                    if($r.StartTid -notlike ""){
+                        $starttid = Get-StartTid -StartTid $r.StartTid
+                    }#End if
+
+                    $UrlForObject = (New-UDLink -Text "Mer information och anmälan(extern sida)" -Url $urlToRace -OpenInNewWindow)
+                    
+                    $customObject = New-Object System.Object
+                    $customObject | Add-Member -Type NoteProperty -Name Namn -Value $r.namn
+                    $customObject | Add-Member -Type NoteProperty -Name Plats -Value $MoreEventInfo.Plats
+                    $customObject | Add-Member -Type NoteProperty -Name Arrangör -Value $MoreEventInfo.arrangörInfos.arrangörNamn
+                    $customObject | Add-Member -Type NoteProperty -Name Kategori -Value $r.Kategori
+                    $customObject | Add-Member -Type NoteProperty -Name StartTid -Value $StartTid.StartTid
+                    $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value $sistaAnmalan.SistaAnmalningsDag
+                    $customObject | Add-Member -Type NoteProperty -Name DagarTillStart -Value $StartTid.DagarTillStart
+                    $customObject | Add-Member -Type NoteProperty -Name DagarTillSistaAnmalning -Value $sistaAnmalan.DagarTillSistaAnmalning
+                    $customObject | Add-Member -Type NoteProperty -Name URL -Value $UrlForObject
+                    $returnArray.Add($customObject) | Out-Null
+                }#End else
+            }#End foreach
+        }#End else
     }#End process
 
     end{
@@ -205,4 +210,35 @@ function Get-SistaAnmalningsDag{
     end{
         return $returnArray
     }#End end
+}#End function
+
+function Get-NullResult{
+    [CmdletBinding()]
+    param(
+    )#End param
+
+    begin{
+        $returnArray = [System.Collections.ArrayList]@()
+    }#End begin
+
+    process{
+        $UrlForObject = (New-UDLink -Text "Inga resultat" -Url "#")
+
+        $customObject = New-Object System.Object
+        $customObject | Add-Member -Type NoteProperty -Name Namn -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name Plats -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name Arrangör -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name Kategori -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name StartTid -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name SistaAnmälningsDatum -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name DagarTillStart -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name DagarTillSistaAnmalning -Value ""
+        $customObject | Add-Member -Type NoteProperty -Name URL -Value $UrlForObject
+        $returnArray.Add($customObject) | Out-Null
+    }#End process
+
+    end{
+        return $returnArray
+    }#End end
+
 }#End function
